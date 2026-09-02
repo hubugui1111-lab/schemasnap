@@ -19,4 +19,3 @@ source code. The snapshot retains only its SHA-256 fingerprint.
 
 Inline `--sql` is useful for local experiments. `sql_file` in `schemasnap.toml` is easier to review and
 avoids shell-history leakage.
-

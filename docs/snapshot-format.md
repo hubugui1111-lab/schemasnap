@@ -41,4 +41,3 @@ silently changing the meaning of existing fields.
 
 Profiles are emitted in source column order. Diff changes use a fixed rule order and then column name,
 so reviews remain stable across operating systems.
-

@@ -16,4 +16,3 @@ Checklist before sending:
 - The recipient has invited project/research discussion.
 - The ask is one bounded feedback question, not a star request.
 - No tracking link, automation, follow-up sequence, or scraped private address is used.
-

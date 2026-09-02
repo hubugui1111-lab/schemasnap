@@ -38,4 +38,3 @@ jobs:
           name: schemasnap-diff
           path: schemasnap-diff.md
           if-no-files-found: error
-

@@ -63,4 +63,3 @@ Python 发行包名是 **`schemasnap-data`**，导入包和命令仍是 `schemas
 
 SchemaSnap 不是仪表盘、SaaS、数据目录、RBAC、调度器，也不替代 Great Expectations。它只专注于：
 生成隐私优先的本地数据契约，并让差异进入代码审查。
-

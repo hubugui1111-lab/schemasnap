@@ -11,4 +11,3 @@
 - DuckDB queries are intentionally conservative and some safe-looking queries may be rejected.
 - SchemaSnap does not perform row validation, referential integrity checks, scheduling, alert routing,
   cataloging, lineage, RBAC, or hosted history.
-

@@ -22,4 +22,3 @@ SchemaSnap reads local files selected by the caller. It never sends them over a 
 in read-only mode with external access disabled and a conservative query allowlist. Output redaction is
 structural, but aggregate statistics and column names can still be sensitive in some domains. Review
 [docs/privacy.md](docs/privacy.md) before committing a snapshot.
-

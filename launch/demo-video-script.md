@@ -9,4 +9,3 @@
 
 Record a fresh terminal session from the tagged release. Do not animate invented output or quote star
 counts/adoption claims. Add English captions and a concise Chinese subtitle track.
-

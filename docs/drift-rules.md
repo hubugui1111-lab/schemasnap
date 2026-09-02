@@ -31,4 +31,3 @@ example, a large numeric shift can produce both range and distribution warnings.
 
 Observed nullability is an empirical property, not a database `NOT NULL` declaration. Small datasets
 can therefore move between nullable states as values appear or disappear.
-

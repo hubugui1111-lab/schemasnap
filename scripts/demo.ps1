@@ -10,4 +10,3 @@ uv run schemasnap diff demo-output/baseline.snap.json examples/gallery/broken-al
 uv run schemasnap diff demo-output/baseline.snap.json examples/gallery/broken-all.csv --format terminal |
     Tee-Object -FilePath assets/demo-transcript.txt
 uv run python scripts/render_demo_svg.py
-

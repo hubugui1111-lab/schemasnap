@@ -35,4 +35,3 @@ It supports CSV, Parquet, Arrow IPC, and restricted read-only DuckDB SQL. The ar
 JSON and intentionally excludes raw strings, category labels, SQL, absolute paths, and row samples.
 The tradeoff is explicit: equal-frequency category-label replacement cannot be detected. Feedback on
 the format and thresholds is welcome.
-

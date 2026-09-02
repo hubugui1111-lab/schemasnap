@@ -24,4 +24,3 @@ body:
       description: Could the feature retain raw values, stable hashes, paths, SQL, or sensitive aggregates?
     validations:
       required: true
-

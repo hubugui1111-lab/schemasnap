@@ -21,4 +21,3 @@ Start with the committed [privacy-safe baseline snapshot](baseline.snap.json) an
 Generate binary fixtures and the verified demo output with `scripts/demo.ps1` or
 `scripts/demo.sh`. Generated data files stay untracked so DuckDB/Arrow/Parquet implementation
 details do not create noisy Git diffs.
-

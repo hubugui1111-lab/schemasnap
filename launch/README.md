@@ -19,4 +19,3 @@ Suggested sequence:
 Use [posts.md](posts.md), [outreach.md](outreach.md), and
 [demo-video-script.md](demo-video-script.md) as drafts. Personalize every message and verify each
 community's current rules immediately before posting.
-

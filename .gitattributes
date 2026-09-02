@@ -4,4 +4,3 @@
 *.parquet binary
 *.arrow binary
 *.duckdb binary
-

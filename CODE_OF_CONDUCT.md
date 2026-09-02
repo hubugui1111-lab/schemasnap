@@ -23,4 +23,3 @@ privacy and apply consequences proportionate to impact and context.
 ## Attribution
 
 Adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1.
-

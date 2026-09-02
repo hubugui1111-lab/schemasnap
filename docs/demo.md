@@ -24,4 +24,3 @@ BREAKING 3  WARNING 3  INFO 1
 
 Generated binary data and `demo-output/` remain ignored. The transcript and SVG are committed so a
 README visitor sees actual product output, not a mockup.
-

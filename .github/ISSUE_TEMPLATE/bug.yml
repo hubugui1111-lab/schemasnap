@@ -34,4 +34,3 @@ body:
       placeholder: OS, Python version, installation method
     validations:
       required: true
-
