@@ -32,7 +32,13 @@ def write_text_atomic(path: Path, content: str, *, overwrite: bool = False) -> N
             temporary.flush()
             os.fsync(temporary.fileno())
             temporary_name = temporary.name
-        os.replace(temporary_name, path)
+        if overwrite:
+            os.replace(temporary_name, path)
+        else:
+            try:
+                os.link(temporary_name, path)
+            except FileExistsError as error:
+                raise FileExistsError(f"already exists: {path}") from error
     finally:
         if temporary_name is not None:
             Path(temporary_name).unlink(missing_ok=True)

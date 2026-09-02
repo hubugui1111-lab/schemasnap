@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.13"
+      - uses: astral-sh/setup-uv@v10.0.1
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: Install locked dependencies
+        run: uv sync --locked
+      - name: Formatting
+        run: uv run ruff format --check .
+      - name: Lint
+        run: uv run ruff check .
+      - name: Strict typing
+        run: uv run mypy
+      - name: Unit tests
+        run: uv run pytest -m "not integration" --no-cov
+      - name: Integration and CLI tests
+        run: uv run pytest -m integration --no-cov
+      - name: Full coverage gate
+        run: uv run pytest --cov=schemasnap --cov-report=term-missing --cov-branch
+      - name: Dependency vulnerability audit
+        run: uv run pip-audit --skip-editable
+      - name: Build distributions
+        run: uv build
+      - name: Verify wheel installation and CLI
+        run: |
+          uv venv .package-venv --python 3.13
+          uv pip install --python .package-venv/bin/python dist/*.whl
+          .package-venv/bin/schemasnap --version
+          .package-venv/bin/schemasnap --help
+      - uses: actions/upload-artifact@v7.0.1
+        with:
+          name: schemasnap-dist
+          path: dist/
+          if-no-files-found: error
+
+  python-312:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v10.0.1
+      - run: uv sync --locked
+      - run: uv run pytest -q
+
+  windows-timezone:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.13"
+      - uses: astral-sh/setup-uv@v10.0.1
+      - run: uv sync --locked
+      - name: Windows timezone and CLI regressions
+        run: uv run pytest tests/test_profile.py tests/test_diff.py tests/test_cli.py -q

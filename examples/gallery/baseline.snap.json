@@ -1,0 +1,106 @@
+{
+  "column_count": 5,
+  "columns": [
+    {
+      "data_type": "int64",
+      "distinct_count": 4,
+      "name": "order_id",
+      "non_null_count": 4,
+      "null_count": 0,
+      "null_ratio": 0.0,
+      "nullable": false,
+      "privacy": "sensitive",
+      "uniqueness_ratio": 1.0
+    },
+    {
+      "data_type": "float64",
+      "distinct_count": 4,
+      "name": "amount",
+      "non_null_count": 4,
+      "null_count": 0,
+      "null_ratio": 0.0,
+      "nullable": false,
+      "numeric": {
+        "maximum": 13.0,
+        "mean": 11.5,
+        "minimum": 10.0,
+        "non_finite_count": 0,
+        "q05": 10.0,
+        "q50": 12.0,
+        "q95": 13.0
+      },
+      "privacy": "standard",
+      "uniqueness_ratio": 1.0
+    },
+    {
+      "category": {
+        "cardinality": 3,
+        "entropy_bits": 1.5,
+        "frequency_ratios": [
+          0.5,
+          0.25,
+          0.25
+        ]
+      },
+      "data_type": "string",
+      "distinct_count": 3,
+      "name": "status",
+      "non_null_count": 4,
+      "null_count": 0,
+      "null_ratio": 0.0,
+      "nullable": false,
+      "privacy": "standard",
+      "uniqueness_ratio": 0.75
+    },
+    {
+      "category": {
+        "cardinality": 3,
+        "entropy_bits": 1.5,
+        "frequency_ratios": [
+          0.5,
+          0.25,
+          0.25
+        ]
+      },
+      "data_type": "string",
+      "distinct_count": 3,
+      "name": "region",
+      "non_null_count": 4,
+      "null_count": 0,
+      "null_ratio": 0.0,
+      "nullable": false,
+      "privacy": "standard",
+      "uniqueness_ratio": 0.75
+    },
+    {
+      "data_type": "int64",
+      "distinct_count": 1,
+      "name": "discount",
+      "non_null_count": 4,
+      "null_count": 0,
+      "null_ratio": 0.0,
+      "nullable": false,
+      "numeric": {
+        "maximum": 0,
+        "mean": 0.0,
+        "minimum": 0,
+        "non_finite_count": 0,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 0.0
+      },
+      "privacy": "standard",
+      "uniqueness_ratio": 0.25
+    }
+  ],
+  "generator": {
+    "name": "schemasnap",
+    "version": "0.1.0"
+  },
+  "row_count": 4,
+  "schema_version": "1.0",
+  "source": {
+    "kind": "csv",
+    "label": "baseline.csv"
+  }
+}

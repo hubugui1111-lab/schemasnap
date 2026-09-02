@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import tomllib
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 
 from schemasnap.models import Severity
 from schemasnap.storage import write_text_atomic
@@ -23,13 +23,25 @@ class SnapConfig:
 _KEYS = {"source", "baseline", "fail_on", "sql", "sql_file"}
 
 
+def _is_absolute_on_any_platform(value: str) -> bool:
+    return PurePosixPath(value).is_absolute() or PureWindowsPath(value).is_absolute()
+
+
 def _relative_path(value: object, key: str) -> Path:
     if not isinstance(value, str) or not value:
         raise ValueError(f"{key} must be a non-empty relative path")
-    path = Path(value)
-    if path.is_absolute():
+    if _is_absolute_on_any_platform(value):
         raise ValueError(f"{key} must be relative to schemasnap.toml")
-    return path
+    return Path(value)
+
+
+def _resolve_project_path(base: Path, value: object, key: str) -> Path:
+    candidate = (base / _relative_path(value, key)).resolve()
+    try:
+        candidate.relative_to(base)
+    except ValueError as error:
+        raise ValueError(f"{key} must stay inside the SchemaSnap project") from error
+    return candidate
 
 
 def load_config(path: Path) -> SnapConfig:
@@ -41,8 +53,8 @@ def load_config(path: Path) -> SnapConfig:
     if missing:
         raise ValueError(f"missing config keys: {', '.join(sorted(missing))}")
     base = path.resolve().parent
-    source = (base / _relative_path(raw["source"], "source")).resolve()
-    baseline = (base / _relative_path(raw["baseline"], "baseline")).resolve()
+    source = _resolve_project_path(base, raw["source"], "source")
+    baseline = _resolve_project_path(base, raw["baseline"], "baseline")
     try:
         fail_on = Severity(str(raw.get("fail_on", Severity.BREAKING.value)).upper())
     except ValueError as error:
@@ -52,7 +64,7 @@ def load_config(path: Path) -> SnapConfig:
         raise ValueError("sql must be a string")
     sql_file_value = raw.get("sql_file")
     sql_file = (
-        (base / _relative_path(sql_file_value, "sql_file")).resolve()
+        _resolve_project_path(base, sql_file_value, "sql_file")
         if sql_file_value is not None
         else None
     )
@@ -68,11 +80,15 @@ def load_config(path: Path) -> SnapConfig:
 
 
 def write_config(path: Path, config: SnapConfig, *, overwrite: bool = False) -> None:
+    base = path.resolve().parent
     for key, candidate in (("source", config.source), ("baseline", config.baseline)):
-        if candidate.is_absolute():
+        if _is_absolute_on_any_platform(str(candidate)):
             raise ValueError(f"{key} must be relative to schemasnap.toml")
-    if config.sql_file is not None and config.sql_file.is_absolute():
+        _resolve_project_path(base, str(candidate), key)
+    if config.sql_file is not None and _is_absolute_on_any_platform(str(config.sql_file)):
         raise ValueError("sql_file must be relative to schemasnap.toml")
+    if config.sql_file is not None:
+        _resolve_project_path(base, str(config.sql_file), "sql_file")
     lines = [
         f"source = {json.dumps(config.source.as_posix())}",
         f"baseline = {json.dumps(config.baseline.as_posix())}",

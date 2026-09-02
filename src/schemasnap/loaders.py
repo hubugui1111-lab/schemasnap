@@ -36,7 +36,7 @@ _BLOCKED_SQL = re.compile(
 )
 _EXTERNAL_SQL = re.compile(
     r"\b(?:httpfs|read_blob|read_csv|read_csv_auto|read_json|read_json_auto|read_ndjson|"
-    r"read_parquet|sqlite_scan|postgres_scan|mysql_scan)\b",
+    r"read_parquet|read_text|sqlite_scan|postgres_scan|mysql_scan)\b",
     flags=re.IGNORECASE,
 )
 

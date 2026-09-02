@@ -1,0 +1,19 @@
+title = "SchemaSnap secret scanning"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Generated and dependency directories are never committed"
+paths = [
+  '''(^|/)\.venv/''',
+  '''(^|/)\.package-venv/''',
+  '''(^|/)dist/''',
+  '''(^|/)build/''',
+  '''(^|/)\.git/''',
+  '''(^|/)\.pytest_cache/''',
+  '''(^|/)\.mypy_cache/''',
+  '''(^|/)\.ruff_cache/''',
+  '''(^|/)demo-output/''',
+  '''(^|/)examples/gallery/generated/''',
+]

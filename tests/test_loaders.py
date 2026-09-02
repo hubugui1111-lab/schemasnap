@@ -11,6 +11,8 @@ import pytest
 from schemasnap.errors import UnsafeQueryError
 from schemasnap.loaders import LoadRequest, load_frame
 
+pytestmark = pytest.mark.integration
+
 
 def test_loads_csv_parquet_and_arrow_ipc(tmp_path: Path) -> None:
     expected = pl.DataFrame({"id": [1, 2], "value": ["a", "b"]})

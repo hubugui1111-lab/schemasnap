@@ -8,6 +8,7 @@ from typer.testing import CliRunner
 from schemasnap.cli import app
 
 runner = CliRunner()
+pytestmark = pytest.mark.integration
 
 
 def test_init_creates_snapshot_and_config_without_overwriting(

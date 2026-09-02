@@ -1,0 +1,6 @@
+source = "data/orders.parquet"
+baseline = ".schemasnap/baseline.snap.json"
+fail_on = "BREAKING"
+# For DuckDB sources, prefer a reviewed relative SQL file:
+# sql_file = "queries/orders.sql"
+

@@ -1,0 +1,41 @@
+name: Data contract
+
+on:
+  pull_request:
+    paths:
+      - "data/**"
+      - ".schemasnap/**"
+      - "schemasnap.toml"
+      - ".github/workflows/data-contract.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  schemasnap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.13"
+      - uses: astral-sh/setup-uv@v10.0.1
+      - name: Check data contract and preserve Markdown
+        shell: bash
+        run: |
+          set +e
+          uvx --from git+https://github.com/hubugui1111-lab/schemasnap.git@v0.1.0 \
+            schemasnap check --format markdown --output schemasnap-diff.md
+          status=$?
+          cat schemasnap-diff.md >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
+      - uses: actions/upload-artifact@v7.0.1
+        if: always()
+        with:
+          name: schemasnap-diff
+          path: schemasnap-diff.md
+          if-no-files-found: error
+

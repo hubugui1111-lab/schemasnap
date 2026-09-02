@@ -1,0 +1,37 @@
+name: Bug report
+description: Report reproducible incorrect behavior with synthetic data.
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not attach private datasets, SQL, credentials, or personal information.
+  - type: input
+    id: version
+    attributes:
+      label: SchemaSnap version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: source
+    attributes:
+      label: Input type
+      options: [CSV, Parquet, Arrow IPC, DuckDB SQL]
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal synthetic reproduction
+      description: Include the command, safe fixture, expected result, and actual result.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: OS, Python version, installation method
+    validations:
+      required: true
+

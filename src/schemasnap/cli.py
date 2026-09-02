@@ -146,12 +146,7 @@ def init_command(
             sql_file=relative_sql_file,
         )
         write_snapshot(output, snapshot, overwrite=force)
-        try:
-            write_config(config, project_config, overwrite=force)
-        except Exception:
-            if not force:
-                output.unlink(missing_ok=True)
-            raise
+        write_config(config, project_config, overwrite=force)
         typer.echo(f"Initialized {config} with baseline {output}")
     except Exception as error:
         _abort(error)

@@ -1,0 +1,9 @@
+SchemaSnap diff: baseline.csv -> broken-all.csv
+BREAKING 3  WARNING 3  INFO 1
+BREAKING COLUMN_REMOVED [region]: column was removed (string -> —)
+BREAKING TYPE_CHANGED [order_id]: column data type changed (int64 -> string)
+BREAKING NULLABILITY_RELAXED [amount]: null values are now observed (false -> true)
+WARNING  RANGE_SHIFT [amount]: numeric range moved beyond the 50% baseline-span threshold (10.0..13.0 -> 1000.0..1300.0)
+WARNING  DISTRIBUTION_SHIFT [amount]: median moved beyond the deterministic baseline threshold (12.0 -> 1200.0)
+WARNING  CATEGORY_DRIFT [status]: label-free category cardinality or frequency profile changed (3 -> 4)
+INFO     COLUMN_ADDED [new_flag]: column was added (— -> bool)

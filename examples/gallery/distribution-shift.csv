@@ -1,0 +1,5 @@
+order_id,amount,status,region,discount
+1001,1000.0,new,north,0
+1002,1100.0,new,south,0
+1003,1200.0,packed,north,0
+1004,1300.0,shipped,west,0

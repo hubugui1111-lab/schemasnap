@@ -52,6 +52,9 @@ packages = ["src/schemasnap"]
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"
 testpaths = ["tests"]
+markers = [
+  "integration: exercises filesystem, database, or command boundaries",
+]
 
 [tool.coverage.run]
 branch = true

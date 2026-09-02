@@ -133,7 +133,7 @@ def _profile_column(series: pl.Series, row_count: int) -> ColumnProfile:
     if privacy is PrivacyClass.STANDARD:
         if series.dtype.is_numeric():
             numeric = _numeric_profile(series)
-        elif series.dtype.is_temporal():
+        elif series.dtype == pl.Date or isinstance(series.dtype, pl.Datetime):
             temporal = _temporal_profile(series)
         elif series.dtype in (pl.String, pl.Boolean) or isinstance(series.dtype, pl.Categorical):
             category = _category_profile(series)

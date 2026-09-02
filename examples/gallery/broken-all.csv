@@ -1,0 +1,5 @@
+order_id,amount,status,discount,new_flag
+order-1001,1000.0,blocked,0,true
+order-1002,,review,0,true
+order-1003,1200.0,cancelled,0,false
+order-1004,1300.0,refunded,0,false

@@ -1,4 +1,5 @@
 .venv/
+.package-venv/
 .coverage
 .pytest_cache/
 .mypy_cache/
@@ -10,4 +11,4 @@ dist/
 *.egg-info/
 .schemasnap/
 demo-output/
-
+examples/gallery/generated/
