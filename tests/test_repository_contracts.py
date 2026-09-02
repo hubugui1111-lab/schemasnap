@@ -55,3 +55,9 @@ def test_demo_asset_is_derived_from_verified_transcript() -> None:
     assert "COLUMN_REMOVED" in transcript
     assert "CATEGORY_DRIFT" in transcript
     assert "verified demo" in svg
+
+
+def test_release_job_identifies_repository_without_checkout() -> None:
+    workflow = (ROOT / ".github" / "workflows" / "release.yml").read_text(encoding="utf-8")
+
+    assert "GH_REPO: ${{ github.repository }}" in workflow
