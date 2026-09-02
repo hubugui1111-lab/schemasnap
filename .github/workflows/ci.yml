@@ -41,6 +41,10 @@ jobs:
         run: uv run pytest -m integration --no-cov
       - name: Full coverage gate
         run: uv run pytest --cov=schemasnap --cov-report=term-missing --cov-branch
+      - name: Reproduce Linux demo
+        run: |
+          ./scripts/demo.sh
+          grep -F "BREAKING 3  WARNING 3  INFO 1" assets/demo-transcript.txt
       - name: Dependency vulnerability audit
         run: uv run pip-audit --skip-editable
       - name: Build distributions
@@ -85,3 +89,8 @@ jobs:
       - run: uv sync --locked
       - name: Windows timezone and CLI regressions
         run: uv run pytest tests/test_profile.py tests/test_diff.py tests/test_cli.py -q
+      - name: Reproduce Windows demo
+        shell: pwsh
+        run: |
+          ./scripts/demo.ps1
+          Select-String -Path assets/demo-transcript.txt -SimpleMatch "BREAKING 3  WARNING 3  INFO 1"
