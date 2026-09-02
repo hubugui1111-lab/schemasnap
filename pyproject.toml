@@ -1,0 +1,77 @@
+[build-system]
+requires = ["hatchling==1.32.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "schemasnap-data"
+version = "0.1.0"
+description = "Privacy-first, Git-native data contract snapshots and deterministic diffs."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+authors = [{ name = "SchemaSnap contributors" }]
+keywords = ["data-contracts", "schema-drift", "parquet", "arrow", "duckdb", "cli"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+dependencies = [
+  "duckdb==1.5.5",
+  "polars==1.44.1",
+  "pyarrow==25.0.1",
+  "pydantic==2.13.5",
+  "typer==0.27.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/hubugui1111-lab/schemasnap"
+Repository = "https://github.com/hubugui1111-lab/schemasnap"
+Issues = "https://github.com/hubugui1111-lab/schemasnap/issues"
+
+[project.scripts]
+schemasnap = "schemasnap.cli:app"
+
+[dependency-groups]
+dev = [
+  "mypy==2.3.1",
+  "pip-audit==2.10.1",
+  "pytest==9.1.1",
+  "pytest-cov==7.0.0",
+  "ruff==0.16.5",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/schemasnap"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["schemasnap"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["schemasnap"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["schemasnap"]
