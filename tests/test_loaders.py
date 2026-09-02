@@ -20,9 +20,7 @@ def test_loads_csv_parquet_and_arrow_ipc(tmp_path: Path) -> None:
     expected.write_csv(csv_path)
     expected.write_parquet(parquet_path)
     table = expected.to_arrow()
-    with pa.OSFile(str(arrow_path), "wb") as sink, ipc.new_file(
-        sink, table.schema
-    ) as writer:
+    with pa.OSFile(str(arrow_path), "wb") as sink, ipc.new_file(sink, table.schema) as writer:
         writer.write_table(table)
 
     for path, kind in ((csv_path, "csv"), (parquet_path, "parquet"), (arrow_path, "arrow")):

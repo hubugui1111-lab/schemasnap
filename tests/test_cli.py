@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from typer.testing import CliRunner
 
 from schemasnap.cli import app
@@ -9,17 +10,19 @@ from schemasnap.cli import app
 runner = CliRunner()
 
 
-def test_init_creates_snapshot_and_config_without_overwriting(csv_pair: tuple[Path, Path]) -> None:
+def test_init_creates_snapshot_and_config_without_overwriting(
+    csv_pair: tuple[Path, Path], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     baseline, _ = csv_pair
-    with runner.isolated_filesystem():
-        result = runner.invoke(app, ["init", str(baseline)])
-        assert result.exit_code == 0, result.output
-        assert Path("schemasnap.toml").is_file()
-        assert Path(".schemasnap/baseline.snap.json").is_file()
+    monkeypatch.chdir(tmp_path)
+    result = runner.invoke(app, ["init", str(baseline)])
+    assert result.exit_code == 0, result.output
+    assert Path("schemasnap.toml").is_file()
+    assert Path(".schemasnap/baseline.snap.json").is_file()
 
-        second = runner.invoke(app, ["init", str(baseline)])
-        assert second.exit_code == 2
-        assert "already exists" in second.output
+    second = runner.invoke(app, ["init", str(baseline)])
+    assert second.exit_code == 2
+    assert "already exists" in second.output
 
 
 def test_diff_renders_markdown_without_failing_build(
