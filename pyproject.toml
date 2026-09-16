@@ -22,11 +22,11 @@ classifiers = [
 ]
 dependencies = [
   "duckdb==1.5.5",
-  "polars==1.44.1",
+  "polars==1.44.2",
   "pyarrow==25.0.1",
   "pydantic==2.13.5",
   "typer==0.27.2",
-  "tzdata==2026.3; sys_platform == 'win32'",
+  "tzdata==2026.4; sys_platform == 'win32'",
 ]
 
 [project.urls]
