@@ -55,7 +55,7 @@ jobs:
           uv pip install --python .package-venv/bin/python dist/*.whl
           .package-venv/bin/schemasnap --version
           .package-venv/bin/schemasnap --help
-      - uses: actions/upload-artifact@v7.0.1
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: schemasnap-dist
           path: dist/

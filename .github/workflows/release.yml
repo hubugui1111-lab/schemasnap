@@ -24,7 +24,7 @@ jobs:
       - run: uv run pip-audit --skip-editable
       - run: uv build
       - run: uv run python -m zipfile -t dist/*.whl
-      - uses: actions/upload-artifact@v7.0.1
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: release-dist
           path: dist/
